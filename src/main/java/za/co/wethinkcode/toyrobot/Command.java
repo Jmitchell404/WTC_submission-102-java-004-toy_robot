@@ -26,7 +26,7 @@ public abstract class Command {
 
     public static Command create(String instruction) {
         String[] args = instruction.toLowerCase().trim().split(" ");
-        switch (args[0]){
+        switch (args[0].toLowerCase()){
             case "shutdown":
             case "off":
                 return new ShutdownCommand();
@@ -34,6 +34,12 @@ public abstract class Command {
                 return new HelpCommand();
             case "forward":
                 return new ForwardCommand(args[1]);
+            case"back":
+                return new BackwardCommand(args[1]);
+            case"left":
+                return new LeftCommand();
+            case"right":
+                return new RightCommand();
             default:
                 throw new IllegalArgumentException("Unsupported command: " + instruction);
         }

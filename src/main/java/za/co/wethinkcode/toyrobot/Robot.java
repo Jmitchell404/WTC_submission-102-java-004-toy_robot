@@ -1,24 +1,101 @@
 package za.co.wethinkcode.toyrobot;
 
-import java.util.Arrays;
-import java.util.List;
+//import za,];
+import za.co.wethinkcode.toyrobot.maze.*;
+import za.co.wethinkcode.toyrobot.world.AbstractWorld;
+import za.co.wethinkcode.toyrobot.world.IWorld;
+import za.co.wethinkcode.toyrobot.world.TextWorld;
+import za.co.wethinkcode.toyrobot.world.TurtleWorld;
 
 public class Robot {
-    private final Position TOP_LEFT = new Position(-200,100);
-    private final Position BOTTOM_RIGHT = new Position(100,-200);
+
 
     public static final Position CENTRE = new Position(0,0);
 
+    private String status;
+    private final String name;
     private Position position;
     private Direction currentDirection;
-    private String status;
-    private String name;
+    private Maze maze;
+
+    private AbstractWorld world;
 
     public Robot(String name) {
         this.name = name;
+//        this.Iworld = Iworld;
         this.status = "Ready";
-        this.position = CENTRE;
-        this.currentDirection = Direction.NORTH;
+//        this.position = CENTRE;
+        this.currentDirection = Direction.UP;
+        Chooseworld(Play.getWorld());
+    }
+
+    public void Chooseworld(String[] commands){
+//        if(commands.length == 0){             //testing
+//            this.maze = new EmptyMaze();      //testing
+//            world = new TextWorld(this.maze);    //testing
+//
+//        }
+
+        if(commands == null){
+            this.maze = new EmptyMaze();
+            world = new TextWorld(this.maze);
+
+        } else if(commands.length == 0){
+            this.maze = new EmptyMaze();
+            world = new TextWorld(this.maze);
+
+        } else if(commands.length == 1){
+            if(commands[0].equals("turtle")){
+                this.maze = new EmptyMaze();
+                world = new TurtleWorld(this.maze);
+
+            } else if(commands[0].equals("text")){
+                this.maze = new EmptyMaze();
+                world = new TextWorld(this.maze);
+
+            } else if(commands[0].equals("SimpleMaze")){
+                this.maze = new SimpleMaze();
+                world = new TextWorld(this.maze);
+
+            } else if(commands[0].equals("RandomMaze")){
+                this.maze = new RandomMaze();
+                world = new TextWorld(this.maze);
+
+            } else if(commands[0].equals("EmptyMaze")){
+                this.maze = new EmptyMaze();
+                world = new TextWorld(this.maze);
+
+            }
+        } else if(commands.length == 2){
+            if(commands[0].equals("turtle")){
+                if (commands[1].equals("EmptyMaze")){
+                    this.maze = new EmptyMaze();
+                    world = new TurtleWorld(this.maze);
+                } else if (commands[1].equals("SimpleMaze")){
+                    this.maze = new EmptyMaze();
+                    world = new TurtleWorld(this.maze);
+                } else if (commands[1].equals("RandomMaze")){
+                    this.maze = new RandomMaze();
+                    world = new TurtleWorld(this.maze);
+                } else if (commands[1].equals("DesignedMaze")){
+                    this.maze = new DesignMaze();
+                    world = new TurtleWorld(this.maze);
+                }
+
+            } else if(commands[0].equals("text")){
+                if(commands[1].equals("EmptyMaze")){
+                    this.maze = new EmptyMaze();
+                    world = new TextWorld(this.maze);
+                } else if(commands[1].equals("SimpleMaze")){
+                    this.maze = new SimpleMaze();
+                    world = new TextWorld(this.maze);
+                } else if(commands[1].equals("RandomMaze")) {
+                    this.maze = new RandomMaze();
+                    world = new TextWorld(this.maze);
+                }
+            }
+        }
+
     }
 
     public String getStatus() {
@@ -33,31 +110,20 @@ public class Robot {
         return command.execute(this);
     }
 
-    public boolean updatePosition(int nrSteps){
-        int newX = this.position.getX();
-        int newY = this.position.getY();
+    public void updateDirection(boolean check){
+        this.world.updateDirection(check);
+    }
 
-        if (Direction.NORTH.equals(this.currentDirection)) {
-            newY = newY + nrSteps;
-        }
-
-        Position newPosition = new Position(newX, newY);
-        if (newPosition.isIn(TOP_LEFT,BOTTOM_RIGHT)){
-            this.position = newPosition;
-            return true;
-        }
-        return false;
+    public IWorld.UpdateResponse updatePosition(int nrSteps){
+        return world.updatePosition(nrSteps);
     }
 
     @Override
     public String toString() {
-       return "[" + this.position.getX() + "," + this.position.getY() + "] "
+       return "[" + this.world.getPosition().getX() + "," + this.world.getPosition().getY() + "] "
                + this.name + "> " + this.status;
     }
 
-    public Position getPosition() {
-        return this.position;
-    }
 
     public void setStatus(String status) {
         this.status = status;

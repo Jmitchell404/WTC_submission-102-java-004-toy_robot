@@ -4,9 +4,15 @@ import java.util.Scanner;
 
 public class Play {
     static Scanner scanner;
+    private static String[] world;
 
     public static void main(String[] args) {
+        world = args;
         scanner = new Scanner(System.in);
+//        args = new String[]{"turtle", "Maze"};
+//        if (true){
+//            Robot robot = new Robot("hal");
+//        }
         Robot robot;
 
         String name = getInput("What do you want to name your robot?");
@@ -39,5 +45,8 @@ public class Play {
             input = scanner.nextLine();
         }
         return input;
+    }
+    public static String[] getWorld(){
+        return world;
     }
 }
