@@ -23,7 +23,7 @@ public class Robot {
     public Robot(String name) {
         this.name = name;
 //        this.Iworld = Iworld;
-        this.status = "Ready";
+        this.status = "Ready.";
 //        this.position = CENTRE;
         this.currentDirection = Direction.UP;
         Chooseworld(Play.getWorld());
@@ -98,6 +98,13 @@ public class Robot {
 
     }
 
+    public boolean ValidateDistanace(int totalDistance){
+        if(this.world.ValidateDistanace(totalDistance)){
+            return true;
+        }
+        return false;
+    }
+
     public String getStatus() {
         return this.status;
     }
@@ -121,7 +128,7 @@ public class Robot {
     @Override
     public String toString() {
        return "[" + this.world.getPosition().getX() + "," + this.world.getPosition().getY() + "] "
-               + this.name + "> " + this.status;
+               + this.name + "> " + this.status+".";
     }
 
 

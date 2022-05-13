@@ -27,6 +27,28 @@ public abstract class AbstractWorld implements IWorld {
 //    protected AbstractWorld(Object currentDirection) {
 //        this.currentDirection = Direction.UP;
 //    }
+    public boolean ValidateDistanace(int totalSteps){
+        int newX = this.position.getX();
+        int newY = this.position.getY();
+
+        if (Direction.UP.equals(this.currentDirection)) {
+            newY = newY + totalSteps;
+        } else if(Direction.DOWN.equals(this.currentDirection)){
+            newY = newY - totalSteps;
+        } else if(Direction.RIGHT.equals(this.currentDirection)) {
+            newX = newX + totalSteps;
+        } else if(Direction.LEFT.equals(this.currentDirection)) {
+            newX = newX - totalSteps;
+        }
+
+        Position newPosition = new Position(newX, newY);
+        if(newPosition.isIn(TOP_LEFT,BOTTOM_RIGHT)){
+            return true;
+        }
+        return false;
+    }
+
+
 
     @Override
     public UpdateResponse updatePosition(int nrSteps) {

@@ -29,7 +29,7 @@ public class Play {
                 command = Command.create(instruction);
                 shouldContinue = robot.handleCommand(command);
             } catch (IllegalArgumentException e) {
-                robot.setStatus("Sorry, I did not understand '" + instruction + "'.");
+                robot.setStatus("Sorry, I did not understand '" + instruction + "'");
             }
             System.out.println(robot);
         } while (shouldContinue);

@@ -25,6 +25,9 @@ public abstract class Command {
     }
 
     public static Command create(String instruction) {
+        if(History.ValidHistoryToAdd(instruction)){
+            History.TrackMovements(instruction);
+        }
         String[] args = instruction.toLowerCase().trim().split(" ");
         switch (args[0].toLowerCase()){
             case "shutdown":
@@ -40,6 +43,10 @@ public abstract class Command {
                 return new LeftCommand();
             case"right":
                 return new RightCommand();
+            case"replay":
+                return new ReplayCommand(instruction);
+            case"sprint":
+                return new SprintCommand(args[1]);
             default:
                 throw new IllegalArgumentException("Unsupported command: " + instruction);
         }
