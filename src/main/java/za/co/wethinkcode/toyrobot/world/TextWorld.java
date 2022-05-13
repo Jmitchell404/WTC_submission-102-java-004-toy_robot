@@ -11,6 +11,10 @@ public class TextWorld extends AbstractWorld {
         System.out.println("Loaded Text World");
         this.mazeType = maze;
     }
+    @Override
+    public boolean isAtEdge(){
+        return super.isAtEdge();
+    }
 
     @Override
     public void showObstacles(){

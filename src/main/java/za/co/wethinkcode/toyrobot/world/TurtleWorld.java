@@ -36,7 +36,7 @@ public class TurtleWorld extends AbstractWorld{
 
     @Override
     public boolean isAtEdge(){
-        return isAtEdge();
+        return super.isAtEdge();
     }
 
     @Override

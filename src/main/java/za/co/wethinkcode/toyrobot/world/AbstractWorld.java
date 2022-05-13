@@ -121,6 +121,15 @@ public abstract class AbstractWorld implements IWorld {
 
     @Override
     public boolean isAtEdge() {
+        if (this.position.getX() ==-200){
+            return true;
+        } else if (this.position.getX() ==200){
+            return true;
+        } else if (this.position.getY() == -100){
+            return true;
+        } else if ( this.position.getY() == 100){
+            return true;
+        }
         return false;
     }
 
