@@ -143,13 +143,17 @@ public abstract class AbstractWorld implements IWorld {
 
     @Override
     public boolean isAtEdge() {
-        if (this.position.getX() ==-200){
+        Position Top = new Position(0,200);
+        Position Bottom = new Position(0,-200);
+        Position Left = new Position(-100,0);
+        Position Right = new Position(100,0);
+        if (this.position.equals(Top)){
             return true;
-        } else if (this.position.getX() ==200){
+        } else if (this.position.equals(Bottom)){
             return true;
-        } else if (this.position.getY() == -100){
+        } else if (this.position.equals(Left)){
             return true;
-        } else if ( this.position.getY() == 100){
+        } else if ( this.position.equals(Right)){
             return true;
         }
         return false;
